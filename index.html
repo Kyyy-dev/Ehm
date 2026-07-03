@@ -1,0 +1,156 @@
+<!DOCTYPE html>
+<html lang="id" data-theme="dark" data-accent="cyan">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AstraCore Game Booster</title>
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="css/animations.css">
+    <link rel="stylesheet" href="css/responsive.css">
+</head>
+<body>
+
+    <canvas id="particle-canvas"></canvas>
+
+    <div id="splash-screen" class="splash-container">
+        <div class="splash-content">
+            <h1 class="logo-text">ASTRA<span>CORE</span></h1>
+            <p class="logo-sub">FLAGSHIP GAME BOOSTER</p>
+            <div class="loader-container">
+                <div class="loader-bar" id="loader-bar"></div>
+            </div>
+            <div class="loader-status">
+                <span id="loader-text">Initializing Systems...</span>
+                <span id="loader-percentage">0%</span>
+            </div>
+        </div>
+    </div>
+
+    <div id="app-interface" class="app-container hidden">
+        
+        <aside class="sidebar glass">
+            <div class="sidebar-brand">
+                <h2>A<span>C</span></h2>
+            </div>
+            <nav class="sidebar-menu">
+                <button class="nav-btn active" data-target="dashboard-page"><i>📊</i><span>Dashboard</span></button>
+                <button class="nav-btn" data-target="boost-page"><i>⚡</i><span>Boost</span></button>
+                <button class="nav-btn" data-target="library-page"><i>🎮</i><span>Library</span></button>
+                <button class="nav-btn" data-target="cleaner-page"><i>🧹</i><span>Cleaner</span></button>
+                <button class="nav-btn" data-target="settings-page"><i>⚙️</i><span>Settings</span></button>
+            </nav>
+        </aside>
+
+        <main class="main-content">
+            <header class="main-header glass">
+                <div class="header-title">
+                    <h1 id="page-title">Dashboard</h1>
+                    <p id="current-time-display">00:00:00 | 01 Jan 2026</p>
+                </div>
+                <div class="header-status">
+                    <span id="net-status" class="badge-online">ONLINE</span>
+                </div>
+            </header>
+
+            <div class="pages-container">
+                
+                <section id="dashboard-page" class="app-page active-page">
+                    <div class="grid-layout">
+                        <div class="card glass animate-float">
+                            <h3>Spesifikasi Sistem</h3>
+                            <div class="spec-list" id="device-specs">
+                                </div>
+                        </div>
+                        <div class="card glass">
+                            <h3>Real-time Telemetry</h3>
+                            <div class="telemetry-grid">
+                                <div class="telemetry-item">
+                                    <span class="label">FPS Counter</span>
+                                    <span id="fps-val" class="value neon-text-cyan">00</span>
+                                </div>
+                                <div class="telemetry-item">
+                                    <span class="label">Ping Estimasi</span>
+                                    <span id="ping-val" class="value neon-text-purple">0 ms</span>
+                                </div>
+                            </div>
+                            <canvas id="fps-chart" width="300" height="120"></canvas>
+                        </div>
+                    </div>
+                </section>
+
+                <section id="boost-page" class="app-page">
+                    <div class="boost-wrapper">
+                        <button id="btn-core-boost" class="boost-trigger">
+                            <span class="boost-glow"></span>
+                            <span class="boost-text">BOOST</span>
+                        </button>
+                        <div id="boost-console" class="console-box glass hidden">
+                            <div class="console-output" id="boost-log"></div>
+                        </div>
+                    </div>
+                </section>
+
+                <section id="library-page" class="app-page">
+                    <div class="library-header">
+                        <input type="text" id="search-game" placeholder="Cari Game..." class="input-field glass">
+                        <button id="btn-add-game" class="btn btn-primary">Tambah Game</button>
+                    </div>
+                    <div class="game-grid" id="game-library-grid">
+                        </div>
+                </section>
+
+                <section id="cleaner-page" class="app-page">
+                    <div class="cleaner-container card glass">
+                        <h3>Smart Cleaner Engine</h3>
+                        <div class="cleaner-status">
+                            <div class="cleaner-metric">
+                                <span class="clean-size" id="cache-size">245</span><span class="clean-unit">MB</span>
+                                <p>Estimasi Sampah Sistem</p>
+                            </div>
+                        </div>
+                        <button id="btn-clean-now" class="btn btn-accent pulse">Bersihkan Sekarang</button>
+                    </div>
+                </section>
+
+                <section id="settings-page" class="app-page">
+                    <div class="card glass">
+                        <h3>Kustomisasi & Cadangan</h3>
+                        <div class="settings-group">
+                            <label>Tema Warna Aksen</label>
+                            <select id="setting-accent" class="input-field glass">
+                                <option value="cyan">Cyan Electric</option>
+                                <option value="purple">Neon Purple</option>
+                                <option value="blue">Deep Blue</option>
+                            </select>
+                        </div>
+                        <div class="settings-group toggle-group">
+                            <label>Animasi UI</label>
+                            <input type="checkbox" id="setting-animation" checked>
+                        </div>
+                        <div class="settings-actions">
+                            <button id="btn-backup" class="btn">Backup Data</button>
+                            <button id="btn-restore" class="btn">Restore Data</button>
+                        </div>
+                    </div>
+                </section>
+
+            </div>
+        </main>
+    </div>
+
+    <div id="game-modal" class="modal hidden">
+        <div class="modal-content glass">
+            <h3>Tambah Game Baru</h3>
+            <input type="text" id="modal-game-title" placeholder="Nama Game" class="input-field glass">
+            <input type="text" id="modal-game-genre" placeholder="Kategori/Genre" class="input-field glass">
+            <div class="modal-buttons">
+                <button id="btn-modal-save" class="btn btn-primary">Simpan</button>
+                <button id="btn-modal-close" class="btn">Batal</button>
+            </div>
+        </div>
+    </div>
+
+<script type="module" src="js/app.js"></script>
+
+</body>
+</html>
